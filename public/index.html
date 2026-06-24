@@ -31,20 +31,8 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        .bg-hearts {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .bg-heart {
-            position: absolute;
-            color: var(--rose);
-            opacity: 0.12;
-            animation: float-up linear infinite;
-        }
+        .bg-hearts { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .bg-heart { position: absolute; color: var(--rose); opacity: 0.12; animation: float-up linear infinite; }
 
         @keyframes float-up {
             0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
@@ -64,91 +52,24 @@
             transition: 0.5s ease;
         }
 
-        .screen {
-            display: none;
-            min-height: 100vh;
-            padding: 24px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .screen.active {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .card-wrap {
-            width: 100%;
-            max-width: 520px;
-            animation: fade-in-up 0.7s ease-out;
-        }
-
+        .screen { display: none; min-height: 100vh; padding: 24px; position: relative; z-index: 1; }
+        .screen.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .card-wrap { width: 100%; max-width: 520px; animation: fade-in-up 0.7s ease-out; }
         .center { text-align: center; }
 
-        .emoji-big {
-            font-size: 78px;
-            margin-bottom: 18px;
-            animation: pulse 2s ease-in-out infinite;
-        }
+        .emoji-big { font-size: 78px; margin-bottom: 18px; animation: pulse 2s ease-in-out infinite; }
+        .question-emoji { font-size: 42px; margin-bottom: 15px; }
 
-        .question-emoji {
-            font-size: 42px;
-            margin-bottom: 15px;
-        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-        }
+        h1, h2 { font-family: 'Playfair Display', serif; line-height: 1.2; }
+        .intro-title { font-size: 2.55rem; margin-bottom: 16px; }
+        .question-title { font-size: 1.85rem; margin-bottom: 10px; }
+        .subtitle { color: #777; font-size: 1.02rem; line-height: 1.6; margin-bottom: 32px; }
 
-        h1, h2 {
-            font-family: 'Playfair Display', serif;
-            line-height: 1.2;
-        }
-
-        .intro-title {
-            font-size: 2.55rem;
-            margin-bottom: 16px;
-        }
-
-        .question-title {
-            font-size: 1.85rem;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            color: #777;
-            font-size: 1.02rem;
-            line-height: 1.6;
-            margin-bottom: 32px;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: #eee;
-            border-radius: 10px;
-            margin-bottom: 35px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--rose), var(--gold));
-            border-radius: 10px;
-            transition: width 0.5s ease;
-        }
-
-        .question-number {
-            font-size: 0.82rem;
-            color: var(--rose-dark);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
+        .progress-bar { width: 100%; height: 6px; background: #eee; border-radius: 10px; margin-bottom: 35px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--rose), var(--gold)); border-radius: 10px; transition: width 0.5s ease; }
+        .question-number { font-size: 0.82rem; color: var(--rose-dark); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--rose), var(--rose-dark));
@@ -166,10 +87,7 @@
             max-width: 320px;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 38px rgba(232, 180, 184, 0.5);
-        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 38px rgba(232, 180, 184, 0.5); }
 
         .btn-secondary {
             background: white;
@@ -198,20 +116,11 @@
             box-shadow: 0 4px 18px rgba(0,0,0,0.04);
         }
 
-        .name-input:focus, .free-input:focus {
-            border-color: var(--rose-dark);
-        }
+        .name-input:focus, .free-input:focus { border-color: var(--rose-dark); }
+        .free-input { min-height: 120px; resize: none; margin-bottom: 16px; }
 
-        .free-input {
-            min-height: 120px;
-            resize: none;
-            margin-bottom: 16px;
-        }
-
-        .options-grid {
-            display: grid;
-            gap: 13px;
-        }
+        .options-grid { display: grid; gap: 13px; }
+        #questionOptions .btn-primary { max-width: none; width: 100%; }
 
         .option-card {
             background: white;
@@ -228,58 +137,17 @@
             overflow: hidden;
         }
 
-        .option-card:hover {
-            border-color: var(--rose);
-            transform: translateX(5px);
-            box-shadow: 0 5px 22px rgba(232, 180, 184, 0.22);
-        }
+        .option-card:hover { border-color: var(--rose); transform: translateX(5px); box-shadow: 0 5px 22px rgba(232, 180, 184, 0.22); }
+        .option-card.disabled { opacity: 0.38; cursor: not-allowed; transform: none !important; }
+        .option-card.selected { border-color: var(--rose-dark); background: var(--soft-pink); animation: select-pop 0.35s ease; }
 
-        .option-card.disabled {
-            opacity: 0.38;
-            cursor: not-allowed;
-            transform: none !important;
-        }
+        @keyframes select-pop { 0% { transform: scale(1); } 50% { transform: scale(1.025); } 100% { transform: scale(1); } }
 
-        .option-card.selected {
-            border-color: var(--rose-dark);
-            background: var(--soft-pink);
-            animation: select-pop 0.35s ease;
-        }
-
-        @keyframes select-pop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.025); }
-            100% { transform: scale(1); }
-        }
-
-        .option-emoji {
-            font-size: 29px;
-            flex-shrink: 0;
-        }
-
-        .option-text {
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .option-desc {
-            font-size: 0.82rem;
-            color: #999;
-            margin-top: 3px;
-        }
-
-        .check-mark {
-            margin-left: auto;
-            font-size: 21px;
-            color: var(--rose-dark);
-            opacity: 0;
-        }
-
+        .option-emoji { font-size: 29px; flex-shrink: 0; }
+        .option-text { font-weight: 700; font-size: 1rem; }
+        .option-desc { font-size: 0.82rem; color: #999; margin-top: 3px; }
+        .check-mark { margin-left: auto; font-size: 21px; color: var(--rose-dark); opacity: 0; }
         .option-card.selected .check-mark { opacity: 1; }
-
-        .date-input {
-            margin-top: 12px;
-        }
 
         .reveal-card, .countdown-box, .fortune-box {
             background: white;
@@ -290,43 +158,15 @@
             text-align: left;
         }
 
-        .reveal-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 14px;
-            padding: 13px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
+        .reveal-row { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 13px 0; border-bottom: 1px solid #f0f0f0; }
         .reveal-row:last-child { border-bottom: none; }
+        .reveal-label, .countdown-label { font-size: 0.78rem; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+        .reveal-value { font-weight: 700; text-align: right; }
+        .countdown-time { margin-top: 8px; font-weight: 800; font-size: 1.28rem; color: var(--rose-dark); text-align: center; }
+        .fortune-text { color: #666; line-height: 1.5; text-align: center; font-style: italic; }
 
-        .reveal-label, .countdown-label {
-            font-size: 0.78rem;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .reveal-value {
-            font-weight: 700;
-            text-align: right;
-        }
-
-        .countdown-time {
-            margin-top: 8px;
-            font-weight: 800;
-            font-size: 1.28rem;
-            color: var(--rose-dark);
-            text-align: center;
-        }
-
-        .fortune-text {
-            color: #666;
-            line-height: 1.5;
-            text-align: center;
-            font-style: italic;
-        }
+        .reveal-actions { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 18px; }
+        .reveal-actions .btn-primary, .reveal-actions .btn-secondary { margin: 0; width: 100%; max-width: 320px; }
 
         .toast {
             position: fixed;
@@ -345,44 +185,14 @@
             white-space: nowrap;
         }
 
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .confetti-container { position: fixed; inset: 0; pointer-events: none; z-index: 100; overflow: hidden; }
+        .confetti-piece { position: absolute; width: 10px; height: 10px; top: -10px; animation: confetti-fall linear forwards; }
 
-        .confetti-container {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 100;
-            overflow: hidden;
-        }
-
-        .confetti-piece {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            top: -10px;
-            animation: confetti-fall linear forwards;
-        }
-
-        @keyframes confetti-fall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
-        }
-
+        @keyframes confetti-fall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
         .shake { animation: shake 0.4s ease; }
-
-        @keyframes fade-in-up {
-            from { opacity: 0; transform: translateY(28px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fade-in-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
 
         .story-export {
             position: fixed;
@@ -410,144 +220,25 @@
             overflow: hidden;
         }
 
-        .story-export-emoji {
-            font-size: 112px;
-            text-align: center;
-            margin-bottom: 34px;
-        }
-
-        .story-export-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 88px;
-            line-height: 1.05;
-            text-align: center;
-            margin-bottom: 34px;
-        }
-
-        .story-export-message {
-            font-size: 38px;
-            line-height: 1.42;
-            text-align: center;
-            color: #5f5555;
-            margin-bottom: 64px;
-        }
-
-        .story-export-card {
-            background: rgba(255,255,255,0.88);
-            border-radius: 46px;
-            padding: 48px 54px;
-            box-shadow: 0 24px 70px rgba(80,54,58,0.12);
-        }
-
-        .story-export-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 38px;
-            padding: 25px 0;
-            border-bottom: 2px solid rgba(232,180,184,0.32);
-            font-size: 32px;
-        }
-
+        .story-export-emoji { font-size: 112px; text-align: center; margin-bottom: 34px; }
+        .story-export-title { font-family: 'Playfair Display', serif; font-size: 88px; line-height: 1.05; text-align: center; margin-bottom: 34px; }
+        .story-export-message { font-size: 38px; line-height: 1.42; text-align: center; color: #5f5555; margin-bottom: 64px; }
+        .story-export-card { background: rgba(255,255,255,0.88); border-radius: 46px; padding: 48px 54px; box-shadow: 0 24px 70px rgba(80,54,58,0.12); }
+        .story-export-row { display: flex; justify-content: space-between; gap: 38px; padding: 25px 0; border-bottom: 2px solid rgba(232,180,184,0.32); font-size: 32px; }
         .story-export-row:last-child { border-bottom: none; }
-
-        .story-export-label {
-            color: #a18d8d;
-            font-weight: 600;
-        }
-
-        .story-export-value {
-            text-align: right;
-            font-weight: 800;
-        }
-
-        .story-export-footer {
-            margin-top: 62px;
-            text-align: center;
-            font-size: 31px;
-            color: #c9a96e;
-            font-weight: 800;
-        }
+        .story-export-label { color: #a18d8d; font-weight: 600; }
+        .story-export-value { text-align: right; font-weight: 800; }
+        .story-export-footer { margin-top: 62px; text-align: center; font-size: 31px; color: #c9a96e; font-weight: 800; }
 
         @media (max-width: 480px) {
             .intro-title { font-size: 2.1rem; }
             .question-title { font-size: 1.55rem; }
             .option-card { padding: 16px 18px; }
             .screen { padding: 20px; }
-        }
-
-        #screen-reveal .btn-primary,
-        #screen-reveal .btn-secondary {
-            display: block;
-            margin: 14px auto 0;
-        }
-
-        #screen-reveal .fortune-box {
-            margin-bottom: 20px;
-        }
-
-        #screen-reveal .btn-primary + .btn-secondary,
-        #screen-reveal .btn-secondary + .btn-secondary,
-        #screen-reveal .btn-secondary + .btn-primary {
-            margin-top: 14px;
-        }
-
-        .reveal-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-            margin-top: 18px;
-        }
-
-        .reveal-actions .btn-primary,
-        .reveal-actions .btn-secondary {
-            margin: 0;
-        }
-
-        .reveal-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-            margin-top: 18px;
-        }
-
-        .reveal-actions .btn-primary,
-        .reveal-actions .btn-secondary {
-            margin: 0;
-            width: 100%;
-            max-width: 320px;
-        }
-
-        #screen-reveal .btn-primary,
-        #screen-reveal .btn-secondary {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        @media (max-width: 480px) {
-            .reveal-card,
-            .countdown-box,
-            .fortune-box {
-                width: 100%;
-                padding: 20px;
-            }
-
-            .reveal-row {
-                align-items: flex-start;
-            }
-
-            .reveal-value {
-                max-width: 58%;
-                word-break: break-word;
-            }
-
-            .toast {
-                max-width: 90vw;
-                white-space: normal;
-                text-align: center;
-            }
+            .reveal-card, .countdown-box, .fortune-box { width: 100%; padding: 20px; }
+            .reveal-row { align-items: flex-start; }
+            .reveal-value { max-width: 58%; word-break: break-word; }
+            .toast { max-width: 90vw; white-space: normal; text-align: center; }
         }
     </style>
 </head>
@@ -560,17 +251,9 @@
     <div class="card-wrap center">
         <div class="emoji-big">💌</div>
         <h1 class="intro-title">A little question<br>is waiting for you...</h1>
-        <p class="subtitle">
-            I made something small, soft, and slightly mysterious. Answer honestly and let the evening reveal itself.
-        </p>
-
-        <button class="btn-primary" onclick="goToScreen('screen-name')">
-            Begin ✨
-        </button>
-
-        <button class="btn-secondary" onclick="toggleMusic()">
-            🎵 Soft Music
-        </button>
+        <p class="subtitle">I made something small, soft, and slightly mysterious. Answer honestly and let the evening reveal itself.</p>
+        <button class="btn-primary" onclick="goToScreen('screen-name')">Begin ✨</button>
+        <button class="btn-secondary" onclick="toggleMusic()">🎵 Soft Music</button>
     </div>
 </div>
 
@@ -580,23 +263,17 @@
         <h2 class="question-title">Before we begin...</h2>
         <p class="subtitle">What should I call you?</p>
         <input id="nameInput" class="name-input" placeholder="Your name..." maxlength="40">
-        <button class="btn-primary" style="margin-top:25px;" onclick="submitName()">
-            Continue 💫
-        </button>
+        <button class="btn-primary" style="margin-top:25px;" onclick="submitName()">Continue 💫</button>
     </div>
 </div>
 
 <div class="screen" id="screen-question">
     <div class="card-wrap">
-        <div class="progress-bar">
-            <div class="progress-fill" id="questionProgress"></div>
-        </div>
-
+        <div class="progress-bar"><div class="progress-fill" id="questionProgress"></div></div>
         <div class="question-number" id="questionNumber"></div>
         <div class="question-emoji" id="questionEmoji"></div>
         <h2 class="question-title" id="questionTitle"></h2>
         <p class="subtitle" id="questionSubtitle"></p>
-
         <div class="options-grid" id="questionOptions"></div>
     </div>
 </div>
@@ -604,20 +281,10 @@
 <div class="screen" id="screen-calculating">
     <div class="card-wrap center">
         <div class="emoji-big">✨</div>
-
         <h2 class="question-title">Calculating your result...</h2>
-
-        <p class="subtitle">
-            Analyzing choices, checking compatibility, consulting the stars...
-        </p>
-
-        <div class="progress-bar" style="margin-top:30px;">
-            <div class="progress-fill" id="calculatingBar" style="width:0%;"></div>
-        </div>
-
-        <p id="calculatingText" style="margin-top:20px;color:#999;font-size:0.95rem;">
-            Reading cosmic signals...
-        </p>
+        <p class="subtitle">Analyzing choices, checking compatibility, consulting the stars...</p>
+        <div class="progress-bar" style="margin-top:30px;"><div class="progress-fill" id="calculatingBar" style="width:0%;"></div></div>
+        <p id="calculatingText" style="margin-top:20px;color:#999;font-size:0.95rem;">Reading cosmic signals...</p>
     </div>
 </div>
 
@@ -625,9 +292,7 @@
     <div class="card-wrap center">
         <div class="emoji-big">🥂</div>
         <h1 class="intro-title">It was never<br>just a quiz 💌</h1>
-        <p class="subtitle" id="finalMessage">
-            I made this little path just to ask you properly: would you go on a date with me?
-        </p>
+        <p class="subtitle" id="finalMessage">I made this little path just to ask you properly: would you go on a date with me?</p>
 
         <div class="reveal-card" id="revealCard"></div>
 
@@ -636,9 +301,7 @@
             <div class="countdown-time" id="countdownTime">Calculating...</div>
         </div>
 
-        <div class="fortune-box">
-            <p class="fortune-text" id="fortuneText">Open a little fortune cookie ✨</p>
-        </div>
+        <div class="fortune-box"><p class="fortune-text" id="fortuneText">Open a little fortune cookie ✨</p></div>
 
         <div class="reveal-actions">
             <button class="btn-secondary" onclick="generateFortune()">🎲 Open Fortune Cookie</button>
@@ -647,51 +310,24 @@
             <button class="btn-secondary" onclick="showToast('Then I will be waiting 💖')">Yes, I’ll come 💖</button>
         </div>
 
-        <p style="margin-top: 24px; color: #999; font-size: 0.9rem;">
-            Made with 💖 just for you
-        </p>
+        <p style="margin-top: 24px; color: #999; font-size: 0.9rem;">Made with 💖 just for you</p>
     </div>
 </div>
 
 <div id="storyExport" class="story-export">
     <div class="story-export-inner">
         <div class="story-export-emoji">💌</div>
-
-        <div class="story-export-title">
-            It was never<br>just a quiz
-        </div>
-
-        <div class="story-export-message" id="storyExportMessage">
-            A little date invitation result
-        </div>
-
+        <div class="story-export-title">It was never<br>just a quiz</div>
+        <div class="story-export-message" id="storyExportMessage">A little date invitation result</div>
         <div class="story-export-card">
-            <div class="story-export-row">
-                <span class="story-export-label">Name</span>
-                <span class="story-export-value" id="storyExportName">-</span>
-            </div>
-            <div class="story-export-row">
-                <span class="story-export-label">Energy</span>
-                <span class="story-export-value" id="storyExportVibe">-</span>
-            </div>
-            <div class="story-export-row">
-                <span class="story-export-label">Place</span>
-                <span class="story-export-value" id="storyExportFood">-</span>
-            </div>
-            <div class="story-export-row">
-                <span class="story-export-label">Date</span>
-                <span class="story-export-value" id="storyExportDate">-</span>
-            </div>
-            <div class="story-export-row">
-                <span class="story-export-label">Time</span>
-                <span class="story-export-value" id="storyExportTime">-</span>
-            </div>
-            <div class="story-export-row">
-                <span class="story-export-label">Mood</span>
-                <span class="story-export-value" id="storyExportDress">-</span>
-            </div>
+            <div class="story-export-row"><span class="story-export-label">Name</span><span class="story-export-value" id="storyExportName">-</span></div>
+            <div class="story-export-row"><span class="story-export-label">Energy</span><span class="story-export-value" id="storyExportVibe">-</span></div>
+            <div class="story-export-row"><span class="story-export-label">Place</span><span class="story-export-value" id="storyExportFood">-</span></div>
+            <div class="story-export-row"><span class="story-export-label">Date</span><span class="story-export-value" id="storyExportDate">-</span></div>
+            <div class="story-export-row"><span class="story-export-label">Time</span><span class="story-export-value" id="storyExportTime">-</span></div>
+            <div class="story-export-row"><span class="story-export-label">Location</span><span class="story-export-value" id="storyExportLocation">-</span></div>
+            <div class="story-export-row"><span class="story-export-label">Mood</span><span class="story-export-value" id="storyExportDress">-</span></div>
         </div>
-
         <div class="story-export-footer">Made with 💖</div>
     </div>
 </div>
@@ -700,23 +336,14 @@
 <div class="toast" id="toast"></div>
 
 <script>
-    const CONFIG = window.SERVER_CONFIG || {
-        API_BASE: ''
-    };
+    const CONFIG = window.SERVER_CONFIG || { API_BASE: '' };
 
     const QUIZ_CONFIG = {
         questions: [
             {
-                id: 'vibe',
-                active: true,
-                freeChoice: false,
-                realChoice: false,
-                title: 'Choose your ideal evening energy',
-                subtitle: 'The kind of mood that quietly pulls you in...',
-                emoji: '🌙',
-                field: 'vibe_choice',
-                revealLabel: 'Energy',
-                revealPrefix: '✨',
+                id: 'vibe', active: true, freeChoice: false, realChoice: false,
+                title: 'Choose your ideal evening energy', subtitle: 'The kind of mood that quietly pulls you in...', emoji: '🌙',
+                field: 'vibe_choice', revealLabel: 'Energy', revealPrefix: '✨',
                 options: [
                     { id: 'calm', emoji: '🕯️', title: 'Calm and warm', desc: 'Soft light, quiet comfort', correct: false },
                     { id: 'romantic', emoji: '✨', title: 'Romantic and magical', desc: 'Something memorable', correct: true },
@@ -725,16 +352,9 @@
                 ]
             },
             {
-                id: 'place',
-                active: true,
-                freeChoice: false,
-                realChoice: false,
-                title: 'What kind of place feels perfect tonight?',
-                subtitle: 'Not too random. Not too ordinary.',
-                emoji: '📍',
-                field: 'food_choice',
-                revealLabel: 'Place',
-                revealPrefix: '🍝',
+                id: 'place', active: true, freeChoice: false, realChoice: false,
+                title: 'What kind of place feels perfect tonight?', subtitle: 'Not too random. Not too ordinary.', emoji: '📍',
+                field: 'food_choice', revealLabel: 'Place', revealPrefix: '🍝',
                 options: [
                     { id: 'restaurant', emoji: '🍝', title: 'Cozy restaurant', desc: 'Good food, soft atmosphere', correct: true },
                     { id: 'city_view', emoji: '🌃', title: 'Pretty city view', desc: 'Lights, photos, fresh air', correct: false },
@@ -743,35 +363,17 @@
                 ]
             },
             {
-                id: 'date',
-                active: true,
-                dateChoice: true,
-                realChoice: true,
-                title: 'Which date feels right?',
-                subtitle: 'Pick one of the possible days.',
-                emoji: '📅',
-                field: 'date_choice',
-                isoField: 'date_iso',
-                revealLabel: 'Date',
-                revealPrefix: '📅',
+                id: 'date', active: true, dateChoice: true, realChoice: true,
+                title: 'Which date feels right?', subtitle: 'Pick one of the possible days.', emoji: '📅',
+                field: 'date_choice', isoField: 'date_iso', revealLabel: 'Date', revealPrefix: '📅',
                 dateMode: 'range',
                 dates: ['2026-07-05', '2026-07-06', '2026-07-07'],
-                range: {
-                    from: '2026-07-05',
-                    to: '2026-07-10'
-                }
+                range: { from: '2026-07-05', to: '2026-07-10' }
             },
             {
-                id: 'time',
-                active: true,
-                freeChoice: false,
-                realChoice: true,
-                title: 'What time works for you?',
-                subtitle: 'This one is really your choice.',
-                emoji: '⏰',
-                field: 'time_choice',
-                revealLabel: 'Time',
-                revealPrefix: '⏰',
+                id: 'time', active: true, freeChoice: false, realChoice: true,
+                title: 'What time works for you?', subtitle: 'This one is really your choice.', emoji: '⏰',
+                field: 'time_choice', revealLabel: 'Time', revealPrefix: '⏰',
                 options: [
                     { id: 'six', emoji: '🌅', title: '6:00 PM', desc: 'Early and calm', correct: true },
                     { id: 'seven_thirty', emoji: '🌆', title: '7:30 PM', desc: 'Perfect evening timing', correct: true },
@@ -779,30 +381,24 @@
                 ]
             },
             {
-                id: 'free_note',
-                active: true,
-                freeChoice: true,
-                realChoice: true,
-                title: 'One small free choice...',
-                subtitle: 'Write anything you want to add.',
-                emoji: '💭',
-                field: 'free_note',
-                revealLabel: 'Note',
-                revealPrefix: '💭',
-                placeholder: 'Type your answer...',
+                id: 'location', active: true, mixedChoice: true, realChoice: true,
+                title: 'Where should we go?', subtitle: 'Pick a place, or suggest your own.', emoji: '📍',
+                field: 'location_choice', revealLabel: 'Location', revealPrefix: '📍',
+                options: [
+                    { id: 'anor', emoji: '🍽️', title: 'ANOR', desc: 'Elegant and cozy', correct: true },
+                    { id: 'custom', emoji: '💭', title: '', desc: '', correct: true, freeText: true, placeholder: 'I know a place' }
+                ]
+            },
+            {
+                id: 'free_note', active: true, freeChoice: true, realChoice: true,
+                title: 'One small free choice...', subtitle: 'Write anything you want to add.', emoji: '💭',
+                field: 'free_note', revealLabel: 'Note', revealPrefix: '💭', placeholder: 'Type your answer...',
                 options: [{ id: 'custom', emoji: '🤍', title: '', desc: '', correct: true }]
             },
             {
-                id: 'dress',
-                active: true,
-                freeChoice: false,
-                realChoice: false,
-                title: 'Final touch: what mood are you coming with?',
-                subtitle: 'There is no wrong answer. But there is one perfect one.',
-                emoji: '👗',
-                field: 'dress_choice',
-                revealLabel: 'Mood',
-                revealPrefix: '✨',
+                id: 'dress', active: true, freeChoice: false, realChoice: false,
+                title: 'Final touch: what mood are you coming with?', subtitle: 'There is no wrong answer. But there is one perfect one.', emoji: '👗',
+                field: 'dress_choice', revealLabel: 'Mood', revealPrefix: '✨',
                 options: [
                     { id: 'soft', emoji: '🌸', title: 'Soft and cute', desc: 'Gentle, sweet, effortless', correct: false },
                     { id: 'elegant', emoji: '✨', title: 'Elegant and stunning', desc: 'The kind of look I won’t forget', correct: true },
@@ -830,6 +426,7 @@
         date_choice: '',
         date_iso: '',
         time_choice: '7:30 PM',
+        location_choice: '',
         dress_choice: '',
         free_note: '',
         fortune_message: '',
@@ -869,7 +466,6 @@
     function createBgHearts() {
         const container = document.getElementById('bgHearts');
         const hearts = ['💕', '💖', '💗', '💓', '💝'];
-
         for (let i = 0; i < 16; i++) {
             const heart = document.createElement('div');
             heart.className = 'bg-heart';
@@ -909,7 +505,6 @@
 
         quizData.name = name;
         quizData.user_name = name;
-
         saveProgress();
         startDynamicQuiz();
     }
@@ -928,12 +523,8 @@
 
         updateRoseBloom();
 
-        document.getElementById('questionProgress').style.width =
-            Math.round((number / total) * 100) + '%';
-
-        document.getElementById('questionNumber').textContent =
-            `Question ${number} of ${total}`;
-
+        document.getElementById('questionProgress').style.width = Math.round((number / total) * 100) + '%';
+        document.getElementById('questionNumber').textContent = `Question ${number} of ${total}`;
         document.getElementById('questionEmoji').textContent = q.emoji;
         document.getElementById('questionTitle').textContent = q.title;
         document.getElementById('questionSubtitle').textContent = q.subtitle;
@@ -941,10 +532,8 @@
         const container = document.getElementById('questionOptions');
         container.innerHTML = '';
 
-        if (q.dateChoice) {
-            renderDateQuestion(q, container);
-            return;
-        }
+        if (q.mixedChoice) { renderMixedQuestion(q, container); return; }
+        if (q.dateChoice) { renderDateQuestion(q, container); return; }
 
         if (q.freeChoice) {
             const input = document.createElement('textarea');
@@ -965,61 +554,86 @@
         q.options.forEach(option => {
             const card = document.createElement('div');
             card.className = 'option-card';
-
             card.innerHTML = `
                 <span class="option-emoji">${option.emoji}</span>
-                <div>
-                    <div class="option-text">${option.title}</div>
-                    <div class="option-desc">${option.desc}</div>
-                </div>
+                <div><div class="option-text">${option.title}</div><div class="option-desc">${option.desc}</div></div>
                 <span class="check-mark">✓</span>
             `;
-
             card.onclick = () => handleDynamicOption(card, q, option);
             container.appendChild(card);
         });
     }
 
-    function renderDateQuestion(q, container) {
-        const dates = q.dateMode === 'range'
-            ? generateDateRange(q.range.from, q.range.to)
-            : q.dates;
+    function renderMixedQuestion(q, container) {
+        q.options.forEach(option => {
+            if (option.freeText) {
+                const input = document.createElement('input');
+                input.className = 'name-input';
+                input.id = 'mixedChoiceInput';
+                input.placeholder = option.placeholder || 'Type your answer...';
+                input.style.marginTop = '4px';
 
-        dates.forEach(dateIso => {
-            const date = new Date(dateIso + 'T00:00:00');
-            const title = date.toLocaleDateString('en-US', {
-                weekday: 'long',
-                month: 'short',
-                day: 'numeric'
-            });
+                const button = document.createElement('button');
+                button.className = 'btn-primary';
+                button.style.marginTop = '14px';
+                button.textContent = 'Continue ✨';
+                button.onclick = () => {
+                    const value = input.value.trim();
+                    if (!value) {
+                        showToast('Write the place first 📍');
+                        input.classList.add('shake');
+                        setTimeout(() => input.classList.remove('shake'), 400);
+                        return;
+                    }
+                    quizData[q.field] = value;
+                    saveProgress();
+                    nextDynamicQuestion();
+                };
+
+                container.appendChild(input);
+                container.appendChild(button);
+                return;
+            }
 
             const card = document.createElement('div');
             card.className = 'option-card';
-
             card.innerHTML = `
-                <span class="option-emoji">📅</span>
-                <div>
-                    <div class="option-text">${title}</div>
-                    <div class="option-desc">${dateIso}</div>
-                </div>
+                <span class="option-emoji">${option.emoji}</span>
+                <div><div class="option-text">${option.title}</div><div class="option-desc">${option.desc}</div></div>
                 <span class="check-mark">✓</span>
             `;
-
             card.onclick = () => {
+                if (card.classList.contains('selected')) return;
                 card.classList.add('selected');
-
-                card.parentElement.querySelectorAll('.option-card').forEach(c => {
-                    if (c !== card) c.classList.add('disabled');
-                });
-
-                quizData[q.field] = title;
-                quizData[q.isoField] = dateIso;
-
+                card.parentElement.querySelectorAll('.option-card').forEach(c => { if (c !== card) c.classList.add('disabled'); });
+                quizData[q.field] = option.title;
                 saveProgress();
-
                 setTimeout(() => nextDynamicQuestion(), 800);
             };
+            container.appendChild(card);
+        });
+    }
 
+    function renderDateQuestion(q, container) {
+        const dates = q.dateMode === 'range' ? generateDateRange(q.range.from, q.range.to) : q.dates;
+        dates.forEach(dateIso => {
+            const date = new Date(dateIso + 'T00:00:00');
+            const title = date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+            const card = document.createElement('div');
+            card.className = 'option-card';
+            card.innerHTML = `
+                <span class="option-emoji">📅</span>
+                <div><div class="option-text">${title}</div><div class="option-desc">${dateIso}</div></div>
+                <span class="check-mark">✓</span>
+            `;
+            card.onclick = () => {
+                card.classList.add('selected');
+                card.parentElement.querySelectorAll('.option-card').forEach(c => { if (c !== card) c.classList.add('disabled'); });
+                quizData[q.field] = title;
+                quizData[q.isoField] = dateIso;
+                saveProgress();
+                setTimeout(() => nextDynamicQuestion(), 800);
+            };
             container.appendChild(card);
         });
     }
@@ -1028,11 +642,9 @@
         const result = [];
         const start = new Date(from + 'T00:00:00');
         const end = new Date(to + 'T00:00:00');
-
         for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
             result.push(d.toISOString().slice(0, 10));
         }
-
         return result;
     }
 
@@ -1041,54 +653,35 @@
 
         if (!option.correct && !question.realChoice) {
             quizData.wrong_clicks++;
-
             card.classList.add('shake');
-
-            setTimeout(() => {
-                card.classList.add('disabled');
-                card.classList.remove('shake');
-            }, 400);
+            setTimeout(() => { card.classList.add('disabled'); card.classList.remove('shake'); }, 400);
 
             const text = card.querySelector('.option-text');
             const original = text.textContent;
-
             text.textContent = 'Hmm... try again 💭';
             text.style.color = '#bbb';
-
-            setTimeout(() => {
-                text.textContent = original;
-                text.style.color = '';
-            }, 1100);
+            setTimeout(() => { text.textContent = original; text.style.color = ''; }, 1100);
 
             saveProgress();
             return;
         }
 
         card.classList.add('selected');
-
-        card.parentElement.querySelectorAll('.option-card').forEach(c => {
-            if (c !== card) c.classList.add('disabled');
-        });
-
+        card.parentElement.querySelectorAll('.option-card').forEach(c => { if (c !== card) c.classList.add('disabled'); });
         quizData[question.field] = option.title;
         saveProgress();
-
-        setTimeout(() => {
-            nextDynamicQuestion();
-        }, 800);
+        setTimeout(() => nextDynamicQuestion(), 800);
     }
 
     function submitFreeChoice(question) {
         const input = document.getElementById('freeChoiceInput');
         const value = input.value.trim();
-
         if (!value) {
             showToast('Write something first 💭');
             input.classList.add('shake');
             setTimeout(() => input.classList.remove('shake'), 400);
             return;
         }
-
         quizData[question.field] = value;
         saveProgress();
         nextDynamicQuestion();
@@ -1096,27 +689,18 @@
 
     function nextDynamicQuestion() {
         currentQuestionIndex++;
-
         if (currentQuestionIndex >= activeQuestions.length) {
             showCalculatingScreen();
-
-            setTimeout(() => {
-                completeQuiz();
-                goToScreen('screen-reveal');
-            }, 3800);
-
+            setTimeout(() => { completeQuiz(); goToScreen('screen-reveal'); }, 3800);
             return;
         }
-
         renderQuestion();
     }
 
     async function showCalculatingScreen() {
         goToScreen('screen-calculating');
-
         const bar = document.getElementById('calculatingBar');
         const text = document.getElementById('calculatingText');
-
         const steps = [
             'Reading cosmic signals... ✨',
             'Checking dinner compatibility... 🍝',
@@ -1124,7 +708,6 @@
             'Generating perfect invitation... 💌',
             'Almost ready...'
         ];
-
         for (let i = 0; i < steps.length; i++) {
             bar.style.width = ((i + 1) * 20) + '%';
             text.textContent = steps[i];
@@ -1134,18 +717,13 @@
 
     function completeQuiz() {
         quizData.completed = true;
-
-        document.getElementById('finalMessage').textContent =
-            `${quizData.name || 'So'}... I made this little path just to ask you properly: would you go on a date with me?`;
-
+        document.getElementById('finalMessage').textContent = `${quizData.name || 'So'}... I made this little path just to ask you properly: would you go on a date with me?`;
         renderRevealCard();
         saveProgress();
-
         if (!quizData.notified) {
             quizData.notified = true;
             notifyYou();
         }
-
         startCountdown();
         launchConfetti();
     }
@@ -1153,25 +731,18 @@
     function renderRevealCard() {
         const revealCard = document.getElementById('revealCard');
         revealCard.innerHTML = '';
-
         addRevealRow(revealCard, 'Name', quizData.name || 'You');
-
         activeQuestions.forEach(q => {
             const value = quizData[q.field];
             if (!value) return;
             addRevealRow(revealCard, q.revealLabel || q.title, `${q.revealPrefix || ''} ${value}`);
         });
-
-        addRevealRow(revealCard, 'Location', '📍 Secret for now');
     }
 
     function addRevealRow(container, label, value) {
         const row = document.createElement('div');
         row.className = 'reveal-row';
-        row.innerHTML = `
-            <span class="reveal-label">${label}</span>
-            <span class="reveal-value">${value}</span>
-        `;
+        row.innerHTML = `<span class="reveal-label">${label}</span><span class="reveal-value">${value}</span>`;
         container.appendChild(row);
     }
 
@@ -1185,7 +756,6 @@
         }
 
         if (box) box.style.display = 'block';
-
         clearInterval(countdownInterval);
 
         const time24 = convertTo24Hour(quizData.time_choice);
@@ -1198,18 +768,15 @@
 
         function update() {
             const diff = target.getTime() - Date.now();
-
             if (diff <= 0) {
                 timeEl.textContent = 'It is time 💌';
                 clearInterval(countdownInterval);
                 return;
             }
-
             const days = Math.floor(diff / 86400000);
             const hours = Math.floor((diff % 86400000) / 3600000);
             const mins = Math.floor((diff % 3600000) / 60000);
             const secs = Math.floor((diff % 60000) / 1000);
-
             timeEl.textContent = `${days}d ${hours}h ${mins}m ${secs}s`;
         }
 
@@ -1219,25 +786,19 @@
 
     function convertTo24Hour(timeText) {
         const match = timeText.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
-
         if (!match) return '19:30';
-
         let hours = Number(match[1]);
         const minutes = match[2];
         const period = match[3].toUpperCase();
-
         if (period === 'PM' && hours !== 12) hours += 12;
         if (period === 'AM' && hours === 12) hours = 0;
-
         return `${String(hours).padStart(2, '0')}:${minutes}`;
     }
 
     function updateRoseBloom() {
         if (!activeQuestions.length) return;
-
         const progress = (currentQuestionIndex + 1) / activeQuestions.length;
         const rose = document.getElementById('roseBloom');
-
         rose.style.transform = `scale(${0.55 + progress * 0.75}) rotate(${progress * 12}deg)`;
         rose.style.opacity = 0.45 + progress * 0.55;
     }
@@ -1260,7 +821,6 @@
         }
 
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
         const gain = audioCtx.createGain();
         gain.gain.value = 0.035;
         gain.connect(audioCtx.destination);
@@ -1285,12 +845,10 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(quizData)
             });
-
             if (!response.ok) {
                 console.error('Save failed:', await response.text());
                 return null;
             }
-
             return await response.json();
         } catch (e) {
             console.error('Save failed:', e);
@@ -1305,12 +863,9 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(quizData)
             });
-
             const result = await response.json();
-
-            if (result.ok) {
-                showToast('Result sent 💌');
-            } else {
+            if (result.ok) showToast('Result sent 💌');
+            else {
                 console.error(result);
                 showToast('Completed, but notification failed');
             }
@@ -1323,59 +878,34 @@
     function shareToTelegram() {
         const text = `I got a little surprise invitation 💌`;
         const url = window.location.href;
-
-        if (tg) {
-            tg.openTelegramLink(
-                'https://t.me/share/url?url=' +
-                encodeURIComponent(url) +
-                '&text=' +
-                encodeURIComponent(text)
-            );
-        } else {
-            window.open(
-                'https://t.me/share/url?url=' +
-                encodeURIComponent(url) +
-                '&text=' +
-                encodeURIComponent(text),
-                '_blank'
-            );
-        }
+        const shareUrl = 'https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text);
+        if (tg) tg.openTelegramLink(shareUrl);
+        else window.open(shareUrl, '_blank');
     }
 
     async function downloadStoryImage() {
         const story = document.getElementById('storyExport');
-
         document.getElementById('storyExportName').textContent = quizData.name || 'You';
         document.getElementById('storyExportVibe').textContent = '✨ ' + (quizData.vibe_choice || 'Romantic and magical');
         document.getElementById('storyExportFood').textContent = '🍝 ' + (quizData.food_choice || 'Cozy restaurant');
         document.getElementById('storyExportDate').textContent = '📅 ' + (quizData.date_choice || 'Selected date');
         document.getElementById('storyExportTime').textContent = '⏰ ' + (quizData.time_choice || '7:30 PM');
+        document.getElementById('storyExportLocation').textContent = '📍 ' + (quizData.location_choice || 'ANOR');
         document.getElementById('storyExportDress').textContent = '✨ ' + (quizData.dress_choice || 'Elegant and stunning');
-
-        document.getElementById('storyExportMessage').textContent =
-            `${quizData.name || 'Someone'} got a little surprise invitation 💌`;
+        document.getElementById('storyExportMessage').textContent = `${quizData.name || 'Someone'} got a little surprise invitation 💌`;
 
         showToast('Generating photo...');
-
-        const canvas = await html2canvas(story, {
-            width: 1080,
-            height: 1920,
-            scale: 1,
-            backgroundColor: null
-        });
-
+        const canvas = await html2canvas(story, { width: 1080, height: 1920, scale: 1, backgroundColor: null });
         const link = document.createElement('a');
         link.download = `date-invitation-${quizData.name || 'photo'}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
-
         showToast('Photo downloaded 📸');
     }
 
     function launchConfetti() {
         const container = document.getElementById('confetti');
         const colors = ['#e8b4b8', '#c9a96e', '#f5e6e8', '#d49599', '#ffd700', '#ff6b9d'];
-
         for (let i = 0; i < 90; i++) {
             const piece = document.createElement('div');
             piece.className = 'confetti-piece';
@@ -1388,10 +918,7 @@
             piece.style.height = (6 + Math.random() * 8) + 'px';
             container.appendChild(piece);
         }
-
-        setTimeout(() => {
-            container.innerHTML = '';
-        }, 6000);
+        setTimeout(() => { container.innerHTML = ''; }, 6000);
     }
 
     document.addEventListener('DOMContentLoaded', init);
