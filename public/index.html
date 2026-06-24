@@ -503,6 +503,52 @@
         .reveal-actions .btn-secondary {
             margin: 0;
         }
+
+        .reveal-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .reveal-actions .btn-primary,
+        .reveal-actions .btn-secondary {
+            margin: 0;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        #screen-reveal .btn-primary,
+        #screen-reveal .btn-secondary {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 480px) {
+            .reveal-card,
+            .countdown-box,
+            .fortune-box {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .reveal-row {
+                align-items: flex-start;
+            }
+
+            .reveal-value {
+                max-width: 58%;
+                word-break: break-word;
+            }
+
+            .toast {
+                max-width: 90vw;
+                white-space: normal;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 
@@ -1130,18 +1176,31 @@
     }
 
     function startCountdown() {
-        if (!quizData.date_iso || !quizData.time_choice) return;
+        const box = document.getElementById('countdownBox');
+        const timeEl = document.getElementById('countdownTime');
+
+        if (!quizData.date_iso || !quizData.time_choice) {
+            if (box) box.style.display = 'none';
+            return;
+        }
+
+        if (box) box.style.display = 'block';
 
         clearInterval(countdownInterval);
 
-        const target = new Date(`${quizData.date_iso} ${quizData.time_choice}`);
+        const time24 = convertTo24Hour(quizData.time_choice);
+        const target = new Date(`${quizData.date_iso}T${time24}:00`);
 
-        countdownInterval = setInterval(() => {
-            const now = new Date();
-            const diff = target - now;
+        if (isNaN(target.getTime())) {
+            timeEl.textContent = 'Date selected 💌';
+            return;
+        }
+
+        function update() {
+            const diff = target.getTime() - Date.now();
 
             if (diff <= 0) {
-                document.getElementById('countdownTime').textContent = 'It is time 💌';
+                timeEl.textContent = 'It is time 💌';
                 clearInterval(countdownInterval);
                 return;
             }
@@ -1151,9 +1210,26 @@
             const mins = Math.floor((diff % 3600000) / 60000);
             const secs = Math.floor((diff % 60000) / 1000);
 
-            document.getElementById('countdownTime').textContent =
-                `${days}d ${hours}h ${mins}m ${secs}s`;
-        }, 1000);
+            timeEl.textContent = `${days}d ${hours}h ${mins}m ${secs}s`;
+        }
+
+        update();
+        countdownInterval = setInterval(update, 1000);
+    }
+
+    function convertTo24Hour(timeText) {
+        const match = timeText.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+
+        if (!match) return '19:30';
+
+        let hours = Number(match[1]);
+        const minutes = match[2];
+        const period = match[3].toUpperCase();
+
+        if (period === 'PM' && hours !== 12) hours += 12;
+        if (period === 'AM' && hours === 12) hours = 0;
+
+        return `${String(hours).padStart(2, '0')}:${minutes}`;
     }
 
     function updateRoseBloom() {
