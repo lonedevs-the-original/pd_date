@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-readFileSync(join(__dirname, '../public/index.html'), 'utf-8');
 
 dotenv.config();
 
