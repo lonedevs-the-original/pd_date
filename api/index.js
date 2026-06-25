@@ -83,9 +83,26 @@ app.post('/api/notify', async (req, res) => {
         return String(value);
     }
 
-    const preferredOrder = [
+    const displayFields = [
+        ['🌸', 'Name', data.name || data.user_name],
+        ['🌙', 'Evening', data.vibe_choice],
+        ['🍽', 'Food', data.food_choice],
+        ['📅', 'Date', data.date_choice],
+        ['🕒', 'Time', data.time_choice],
+        ['📍', 'Location', data.location_choice],
+        ['👗', 'Mood', data.dress_choice],
+        ['💭', 'Note', data.free_note],
+        ['🍪', 'Fortune', data.fortune_message]
+    ].filter(([_, __, value]) => value !== undefined && value !== null && value !== '');
+
+    const mainText = displayFields
+        .map(([emoji, label, value]) => `${emoji} <b>${label}:</b> ${escapeHtml(formatValue(value))}`)
+        .join('\n');
+
+    const knownFields = [
         'name',
         'user_name',
+        'user_id',
         'vibe_choice',
         'food_choice',
         'date_choice',
@@ -94,113 +111,42 @@ app.post('/api/notify', async (req, res) => {
         'location_choice',
         'dress_choice',
         'free_note',
-        'fortune_message'
+        'fortune_message',
+        'wrong_clicks',
+        'wrong_answers',
+        'completed',
+        'notified'
     ];
 
-    const hiddenFields = new Set([
-        'notified',
-        'wrong_answers'
-    ]);
-
-    const emojiMap = {
-        name: '🌸',
-        user_name: '👤',
-        user_id: '🆔',
-        vibe_choice: '🌙',
-        food_choice: '🍽',
-        date_choice: '📅',
-        date_iso: '🗓',
-        time_choice: '🕒',
-        location_choice: '📍',
-        dress_choice: '👗',
-        free_note: '💭',
-        fortune_message: '🍪',
-        wrong_clicks: '❌',
-        completed: '✅',
-        completed_at: '🏁'
-    };
-
-    const labelMap = {
-        name: 'Name',
-        user_name: 'Telegram Name',
-        user_id: 'User ID',
-        vibe_choice: 'Evening',
-        food_choice: 'Food / Place Mood',
-        date_choice: 'Date',
-        date_iso: 'Date ISO',
-        time_choice: 'Time',
-        location_choice: 'Location',
-        dress_choice: 'Mood',
-        free_note: 'Note',
-        fortune_message: 'Fortune',
-        wrong_clicks: 'Wrong Clicks',
-        completed: 'Completed',
-        completed_at: 'Completed At'
-    };
-
-    function fieldLine(key, value) {
-        const emoji = emojiMap[key] || '▫️';
-        const label = labelMap[key] || formatLabel(key);
-        return `${emoji} <b>${escapeHtml(label)}</b>\n${escapeHtml(formatValue(value))}`;
-    }
-
-    const orderedKeys = [
-        ...preferredOrder.filter(key => key in data),
-        ...Object.keys(data).filter(key => !preferredOrder.includes(key))
-    ];
-
-    const mainLines = orderedKeys
-        .filter(key => !hiddenFields.has(key))
-        .filter(key => data[key] !== undefined && data[key] !== null && data[key] !== '')
-        .filter(key => key !== 'wrong_clicks' && key !== 'completed' && key !== 'completed_at' && key !== 'user_id')
-        .map(key => fieldLine(key, data[key]));
+    const extraFields = Object.entries(data)
+        .filter(([key, value]) =>
+            !knownFields.includes(key)
+            && value !== undefined
+            && value !== null
+            && value !== ''
+        )
+        .map(([key, value]) => `▫️ <b>${escapeHtml(formatLabel(key))}:</b> ${escapeHtml(formatValue(value))}`)
+        .join('\n');
 
     const wrongAnswersText =
         Array.isArray(data.wrong_answers) && data.wrong_answers.length
             ? data.wrong_answers
-                .map((x, i) => {
-                    const question = escapeHtml(x.question || 'Unknown question');
-                    const answer = escapeHtml(x.answer || 'Unknown answer');
-                    return `${i + 1}. <b>${question}</b>\n   ↳ ${answer}`;
-                })
-                .join('\n\n')
+                .map((x, i) => `${i + 1}) ${escapeHtml(x.question || 'Question')} → ${escapeHtml(x.answer || 'Answer')}`)
+                .join('\n')
             : 'None';
 
-    const technicalLines = [];
-
-    if (data.user_id) {
-        technicalLines.push(`🆔 <b>User ID</b>\n<code>${escapeHtml(data.user_id)}</code>`);
-    }
-
-    if ('completed' in data) {
-        technicalLines.push(`✅ <b>Completed</b>\n${data.completed ? 'Yes' : 'No'}`);
-    }
-
-    if (data.completed_at) {
-        technicalLines.push(`🏁 <b>Completed At</b>\n${escapeHtml(data.completed_at)}`);
-    }
-
     const message = [
-        '💌 <b>New Date Invitation Response</b>',
+        '💌 <b>New response</b>',
         '',
-        '━━━━━━━━━━━━━━━━━━',
+        mainText,
+        extraFields ? `\n${extraFields}` : '',
         '',
-        ...mainLines,
+        `❌ <b>Wrong clicks:</b> ${escapeHtml(data.wrong_clicks ?? 0)}`,
+        `🤭 <b>Wanted first:</b>\n${wrongAnswersText}`,
         '',
-        '━━━━━━━━━━━━━━━━━━',
-        '',
-        '🎯 <b>Quiz Statistics</b>',
-        '',
-        `❌ <b>Wrong clicks</b>\n${escapeHtml(data.wrong_clicks ?? 0)}`,
-        '',
-        wrongAnswersText !== 'None'
-            ? `🤭 <b>Choices she wanted first</b>\n\n${wrongAnswersText}`
-            : '💖 <b>Choices she wanted first</b>\nNone',
-        '',
-        '━━━━━━━━━━━━━━━━━━',
-        '',
-        ...technicalLines
-    ].join('\n');
+        data.completed ? '✅ Completed' : '⚠️ Not completed',
+        data.user_id ? `🆔 <code>${escapeHtml(data.user_id)}</code>` : ''
+    ].filter(Boolean).join('\n');
 
     try {
         const tgResponse = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
