@@ -346,9 +346,9 @@
                 field: 'vibe_choice', revealLabel: 'Energy', revealPrefix: '✨',
                 options: [
                     { id: 'calm', emoji: '🕯️', title: 'Calm and warm', desc: 'Soft light, quiet comfort', correct: false },
-                    { id: 'romantic', emoji: '✨', title: 'Romantic and magical', desc: 'Something memorable', correct: true },
+                    { id: 'romantic', emoji: '✨', title: 'Romantic and magical', desc: 'Something memorable', correct: false },
                     { id: 'fun', emoji: '🎡', title: 'Fun and spontaneous', desc: 'A little surprise, a little chaos', correct: false },
-                    { id: 'deep', emoji: '🌌', title: 'Deep conversation', desc: 'City lights and honest words', correct: false }
+                    { id: 'deep', emoji: '🌌', title: 'Deep conversation', desc: 'City lights and honest words', correct: true }
                 ]
             },
             {
@@ -367,17 +367,17 @@
                 title: 'Which date feels right?', subtitle: 'Pick one of the possible days.', emoji: '📅',
                 field: 'date_choice', isoField: 'date_iso', revealLabel: 'Date', revealPrefix: '📅',
                 dateMode: 'range',
-                dates: ['2026-07-05', '2026-07-06', '2026-07-07'],
-                range: { from: '2026-07-05', to: '2026-07-10' }
+                dates: ['2026-07-04', '2026-07-05'],
+                range: { from: '2026-07-04', to: '2026-07-05' }
             },
             {
                 id: 'time', active: true, freeChoice: false, realChoice: true,
                 title: 'What time works for you?', subtitle: 'This one is really your choice.', emoji: '⏰',
                 field: 'time_choice', revealLabel: 'Time', revealPrefix: '⏰',
                 options: [
-                    { id: 'six', emoji: '🌅', title: '6:00 PM', desc: 'Early and calm', correct: true },
-                    { id: 'seven_thirty', emoji: '🌆', title: '7:30 PM', desc: 'Perfect evening timing', correct: true },
-                    { id: 'nine', emoji: '🌙', title: '9:00 PM', desc: 'Night mood', correct: true }
+                    { id: 'ten', emoji: '🌅', title: '10:00 PM', desc: 'Early and calm', correct: true },
+                    { id: 'fourteen', emoji: '🌆', title: '14:00 PM', desc: 'Maybe at the hottest time', correct: true },
+                    { id: 'sixteen', emoji: '🌙', title: '16:00 PM', desc: 'Halfway into evening', correct: true }
                 ]
             },
             {

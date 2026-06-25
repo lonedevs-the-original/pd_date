@@ -61,20 +61,58 @@ app.post('/api/notify', async (req, res) => {
 
     const data = req.body;
 
-    const message = `
-💌 <b>Quiz completed!</b>
+    const hiddenFields = new Set([
+        'notified'
+    ]);
 
-🌸 <b>Name:</b> ${data.name || data.user_name || 'Unknown'}
-🆔 <b>User ID:</b> ${data.user_id}
+    const labelMap = {
+        user_id: 'User ID',
+        user_name: 'User Name',
+        name: 'Name',
+        vibe_choice: 'Evening Energy',
+        food_choice: 'Place Mood',
+        date_choice: 'Date',
+        date_iso: 'Date ISO',
+        time_choice: 'Time',
+        location_choice: 'Location',
+        dress_choice: 'Final Mood',
+        free_note: 'Note',
+        fortune_message: 'Fortune',
+        wrong_clicks: 'Wrong Clicks',
+        completed: 'Completed',
+        completed_at: 'Completed At'
+    };
 
-✨ <b>Evening Energy:</b> ${data.vibe_choice || '-'}
-📍 <b>Place Mood:</b> ${data.food_choice || '-'}
-⏰ <b>Chosen Time:</b> ${data.time_choice || '-'}
-👗 <b>Final Mood:</b> ${data.dress_choice || '-'}
+    function escapeHtml(value) {
+        return String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
 
-❌ <b>Wrong clicks:</b> ${data.wrong_clicks ?? 0}
-✅ <b>Completed:</b> ${data.completed ? 'Yes' : 'No'}
-`;
+    function formatValue(value) {
+        if (value === true) return 'Yes';
+        if (value === false) return 'No';
+        if (value === null || value === undefined || value === '') return '-';
+        return escapeHtml(value);
+    }
+
+    const lines = Object.entries(data)
+        .filter(([key, value]) => !hiddenFields.has(key))
+        .filter(([key, value]) => value !== undefined && value !== null && value !== '')
+        .map(([key, value]) => {
+            const label = labelMap[key] || key
+                .replace(/_/g, ' ')
+                .replace(/\b\w/g, c => c.toUpperCase());
+
+            return `<b>${escapeHtml(label)}:</b> ${formatValue(value)}`;
+        });
+
+    const message = [
+        '💌 <b>Quiz completed!</b>',
+        '',
+        ...lines
+    ].join('\n');
 
     try {
         const tgResponse = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
