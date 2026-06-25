@@ -346,9 +346,9 @@
                 field: 'vibe_choice', revealLabel: 'Energy', revealPrefix: '✨',
                 options: [
                     { id: 'calm', emoji: '🕯️', title: 'Calm and warm', desc: 'Soft light, quiet comfort', correct: false },
-                    { id: 'romantic', emoji: '✨', title: 'Romantic and magical', desc: 'Something memorable', correct: false },
+                    { id: 'romantic', emoji: '✨', title: 'Romantic and magical', desc: 'Something memorable', correct: true },
                     { id: 'fun', emoji: '🎡', title: 'Fun and spontaneous', desc: 'A little surprise, a little chaos', correct: false },
-                    { id: 'deep', emoji: '🌌', title: 'Deep conversation', desc: 'City lights and honest words', correct: true }
+                    { id: 'deep', emoji: '🌌', title: 'Deep conversation', desc: 'City lights and honest words', correct: false }
                 ]
             },
             {
@@ -366,18 +366,18 @@
                 id: 'date', active: true, dateChoice: true, realChoice: true,
                 title: 'Which date feels right?', subtitle: 'Pick one of the possible days.', emoji: '📅',
                 field: 'date_choice', isoField: 'date_iso', revealLabel: 'Date', revealPrefix: '📅',
-                dateMode: 'range',
-                dates: ['2026-07-05', '2026-07-06'],
-                range: { from: '2026-07-05', to: '2026-07-06' }
+                dateMode: 'separate',
+                dates: ['2026-06-04', '2026-06-05'],
+                range: { from: '2026-06-04', to: '2026-06-05' }
             },
             {
                 id: 'time', active: true, freeChoice: false, realChoice: true,
                 title: 'What time works for you?', subtitle: 'This one is really your choice.', emoji: '⏰',
                 field: 'time_choice', revealLabel: 'Time', revealPrefix: '⏰',
                 options: [
-                    { id: 'ten', emoji: '🌅', title: '10:00 PM', desc: 'Early and calm', correct: true },
-                    { id: 'fourteen', emoji: '🌆', title: '14:00 PM', desc: 'Maybe at the hottest time', correct: true },
-                    { id: 'sixteen', emoji: '🌙', title: '16:00 PM', desc: 'Halfway into evening', correct: true }
+                    { id: 'six', emoji: '🌅', title: '6:00 PM', desc: 'Early and calm', correct: true },
+                    { id: 'seven_thirty', emoji: '🌆', title: '7:30 PM', desc: 'Perfect evening timing', correct: true },
+                    { id: 'nine', emoji: '🌙', title: '9:00 PM', desc: 'Night mood', correct: true }
                 ]
             },
             {
@@ -431,6 +431,7 @@
         free_note: '',
         fortune_message: '',
         wrong_clicks: 0,
+        wrong_answers: [],
         completed: false,
         notified: false
     };
@@ -653,6 +654,16 @@
 
         if (!option.correct && !question.realChoice) {
             quizData.wrong_clicks++;
+
+            if (!Array.isArray(quizData.wrong_answers)) {
+                quizData.wrong_answers = [];
+            }
+
+            quizData.wrong_answers.push({
+                question: question.title,
+                answer: option.title
+            });
+
             card.classList.add('shake');
             setTimeout(() => { card.classList.add('disabled'); card.classList.remove('shake'); }, 400);
 
@@ -758,8 +769,20 @@
         if (box) box.style.display = 'block';
         clearInterval(countdownInterval);
 
-        const time24 = convertTo24Hour(quizData.time_choice);
-        const target = new Date(`${quizData.date_iso}T${time24}:00`);
+        const parts = String(quizData.date_iso).split('-');
+        const year = Number(parts[0]);
+        const month = Number(parts[1]) - 1;
+        const day = Number(parts[2]);
+        const timeParts = convertTo24HourParts(quizData.time_choice);
+
+        const target = new Date(
+            year,
+            month,
+            day,
+            timeParts.hours,
+            timeParts.minutes,
+            0
+        );
 
         if (isNaN(target.getTime())) {
             timeEl.textContent = 'Date selected 💌';
@@ -784,15 +807,25 @@
         countdownInterval = setInterval(update, 1000);
     }
 
-    function convertTo24Hour(timeText) {
-        const match = timeText.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
-        if (!match) return '19:30';
+    function convertTo24HourParts(timeText) {
+        const cleaned = String(timeText)
+            .replace(/[^\d:APMapm\s]/g, '')
+            .trim();
+
+        const match = cleaned.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+
+        if (!match) {
+            return { hours: 19, minutes: 30 };
+        }
+
         let hours = Number(match[1]);
-        const minutes = match[2];
+        const minutes = Number(match[2]);
         const period = match[3].toUpperCase();
+
         if (period === 'PM' && hours !== 12) hours += 12;
         if (period === 'AM' && hours === 12) hours = 0;
-        return `${String(hours).padStart(2, '0')}:${minutes}`;
+
+        return { hours, minutes };
     }
 
     function updateRoseBloom() {
