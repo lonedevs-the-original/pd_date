@@ -240,6 +240,55 @@
             .reveal-value { max-width: 58%; word-break: break-word; }
             .toast { max-width: 90vw; white-space: normal; text-align: center; }
         }
+
+        .pretty-date-picker {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .pretty-date-card {
+            border: 2px solid transparent;
+            border-radius: 22px;
+            background: linear-gradient(180deg, #ffffff, #fff7f8);
+            padding: 18px 10px;
+            min-height: 132px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(232, 180, 184, 0.18);
+            font-family: 'Inter', sans-serif;
+            color: var(--charcoal);
+            transition: 0.25s ease;
+        }
+
+        .pretty-date-card:hover,
+        .pretty-date-card.selected {
+            border-color: var(--rose-dark);
+            background: linear-gradient(180deg, var(--soft-pink), #ffffff);
+            transform: translateY(-4px);
+        }
+
+        .pretty-date-weekday {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: var(--rose-dark);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .pretty-date-day {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 6px 0;
+        }
+
+        .pretty-date-month {
+            display: block;
+            color: #999;
+            font-weight: 700;
+        }
     </style>
 </head>
 
@@ -668,27 +717,49 @@
     }
 
     function renderDateQuestion(q, container) {
-        const dates = q.dateMode === 'range' ? generateDateRange(q.range.from, q.range.to) : q.dates;
+        const dates = q.dateMode === 'range'
+            ? generateDateRange(q.range.from, q.range.to)
+            : q.dates;
+
+        const picker = document.createElement('div');
+        picker.className = 'pretty-date-picker';
+
         dates.forEach(dateIso => {
             const date = new Date(dateIso + 'T00:00:00');
-            const title = date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
-            const card = document.createElement('div');
-            card.className = 'option-card';
+
+            const weekday = date.toLocaleDateString('en-US', { weekday: 'short' });
+            const month = date.toLocaleDateString('en-US', { month: 'short' });
+            const day = date.toLocaleDateString('en-US', { day: 'numeric' });
+
+            const card = document.createElement('button');
+            card.type = 'button';
+            card.className = 'pretty-date-card';
+
             card.innerHTML = `
-                <span class="option-emoji">📅</span>
-                <div><div class="option-text">${title}</div><div class="option-desc">${dateIso}</div></div>
-                <span class="check-mark">✓</span>
-            `;
+            <span class="pretty-date-weekday">${weekday}</span>
+            <span class="pretty-date-day">${day}</span>
+            <span class="pretty-date-month">${month}</span>
+        `;
+
             card.onclick = () => {
+                picker.querySelectorAll('.pretty-date-card').forEach(c => {
+                    c.classList.remove('selected');
+                });
+
                 card.classList.add('selected');
-                card.parentElement.querySelectorAll('.option-card').forEach(c => { if (c !== card) c.classList.add('disabled'); });
-                quizData[q.field] = title;
+
+                quizData[q.field] = `${weekday}, ${month} ${day}`;
                 quizData[q.isoField] = dateIso;
+
                 saveProgress();
-                setTimeout(() => nextDynamicQuestion(), 800);
+
+                setTimeout(() => nextDynamicQuestion(), 650);
             };
-            container.appendChild(card);
+
+            picker.appendChild(card);
         });
+
+        container.appendChild(picker);
     }
 
     function generateDateRange(from, to) {
