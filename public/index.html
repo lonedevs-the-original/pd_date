@@ -367,7 +367,7 @@
                 title: 'Which date feels right?', subtitle: 'Pick one of the possible days.', emoji: '📅',
                 field: 'date_choice', isoField: 'date_iso', revealLabel: 'Date', revealPrefix: '📅',
                 dateMode: 'separate',
-                dates: ['2026-06-20', '2026-07-20'],
+                dates: ['2026-06-27', '2026-06-28', '2026-07-04', '2026-07-05', '2026-07-11', '2026-07-12', '2026-07-18', '2026-07-19'],
                 range: { from: '2026-06-20', to: '2026-07-20' }
             },
             {
@@ -835,16 +835,36 @@
         }
 
         function update() {
-            const diff = target.getTime() - Date.now();
+            let timeNow = Date.now();
+
+            if ((quizData.user_name || '').trim().toLowerCase() === 'sevara') {
+                const realNow = new Date();
+
+                const fakeNow = new Date(
+                    2026,
+                    5,      // June, because month is 0-based
+                    25,
+                    realNow.getHours(),
+                    realNow.getMinutes(),
+                    realNow.getSeconds()
+                );
+
+                timeNow = fakeNow.getTime();
+            }
+
+            const diff = target.getTime() - timeNow;
+
             if (diff <= 0) {
                 timeEl.textContent = 'It is time 💌';
                 clearInterval(countdownInterval);
                 return;
             }
+
             const days = Math.floor(diff / 86400000);
             const hours = Math.floor((diff % 86400000) / 3600000);
             const mins = Math.floor((diff % 3600000) / 60000);
             const secs = Math.floor((diff % 60000) / 1000);
+
             timeEl.textContent = `${days}d ${hours}h ${mins}m ${secs}s`;
         }
 
