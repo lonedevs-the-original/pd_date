@@ -345,9 +345,9 @@
                 title: 'Choose your ideal evening energy', subtitle: 'The kind of mood that quietly pulls you in...', emoji: '🌙',
                 field: 'vibe_choice', revealLabel: 'Energy', revealPrefix: '✨',
                 options: [
-                    { id: 'calm', emoji: '🕯️', title: 'Calm and warm', desc: 'Soft light, quiet comfort', correct: false },
-                    { id: 'romantic', emoji: '✨', title: 'Romantic and magical', desc: 'Something memorable', correct: false },
-                    { id: 'fun', emoji: '🎡', title: 'Fun and spontaneous', desc: 'A little surprise, a little chaos', correct: false },
+                    { id: 'calm', emoji: '🕯️', title: 'Calm and warm', desc: 'Soft light, quiet comfort', correct: true },
+                    { id: 'romantic', emoji: '✨', title: 'Romantic and magical', desc: 'Something memorable', correct: true },
+                    { id: 'fun', emoji: '🎡', title: 'Fun and spontaneous', desc: 'A little surprise, a little chaos', correct: true },
                     { id: 'deep', emoji: '🌌', title: 'Deep conversation', desc: 'City lights and honest words', correct: true }
                 ]
             },
@@ -357,36 +357,30 @@
                 field: 'food_choice', revealLabel: 'Place', revealPrefix: '🍝',
                 options: [
                     { id: 'restaurant', emoji: '🍝', title: 'Cozy restaurant', desc: 'Good food, soft atmosphere', correct: true },
-                    { id: 'city_view', emoji: '🌃', title: 'Pretty city view', desc: 'Lights, photos, fresh air', correct: false },
-                    { id: 'cafe', emoji: '☕', title: 'Quiet cafe', desc: 'Simple, gentle, easy', correct: false },
-                    { id: 'surprise', emoji: '🎁', title: 'Surprise me', desc: 'Trust the plan', correct: false }
+                    { id: 'city_view', emoji: '🌃', title: 'Pretty city view', desc: 'Lights, photos, fresh air', correct: true },
+                    { id: 'cafe', emoji: '☕', title: 'Quiet cafe', desc: 'Simple, gentle, easy', correct: true },
+                    { id: 'surprise', emoji: '🎁', title: 'Surprise me', desc: 'Trust the plan', correct: true }
                 ]
             },
             {
                 id: 'date', active: true, dateChoice: true, realChoice: true,
                 title: 'Which date feels right?', subtitle: 'Pick one of the possible days.', emoji: '📅',
                 field: 'date_choice', isoField: 'date_iso', revealLabel: 'Date', revealPrefix: '📅',
-                dateMode: 'range',
-                dates: ['2026-07-05', '2026-07-06'],
-                range: { from: '2026-07-05', to: '2026-07-06' }
+                dateMode: 'separate',
+                dates: ['2026-06-20', '2026-07-20'],
+                range: { from: '2026-06-20', to: '2026-07-20' }
             },
             {
-                id: 'time', active: true, freeChoice: false, realChoice: true,
-                title: 'What time works for you?', subtitle: 'This one is really your choice.', emoji: '⏰',
-                field: 'time_choice', revealLabel: 'Time', revealPrefix: '⏰',
-                options: [
-                    { id: 'ten', emoji: '🌅', title: '10:00 AM', desc: 'Early and calm', correct: true },
-                    { id: 'fourteen', emoji: '🌆', title: '14:00 PM', desc: 'Maybe at the hottest time', correct: true },
-                    { id: 'sixteen', emoji: '🌙', title: '16:00 PM', desc: 'Halfway into evening', correct: true }
-                ]
+                id: 'time', active: true, timeChoice: true, realChoice: true,
+                title: 'What time works for you?', subtitle: 'Pick the exact time that feels right.', emoji: '⏰',
+                field: 'time_choice', revealLabel: 'Time', revealPrefix: '⏰'
             },
             {
                 id: 'location', active: true, mixedChoice: true, realChoice: true,
                 title: 'Where should we go?', subtitle: 'Pick a place, or suggest your own.', emoji: '📍',
                 field: 'location_choice', revealLabel: 'Location', revealPrefix: '📍',
                 options: [
-                    { id: 'anor', emoji: '🍽️', title: 'ANOR', desc: 'Cozy', correct: true },
-                    { id: 'custom', emoji: '💭', title: '', desc: '', correct: true, freeText: true, placeholder: 'I know a place' }
+                    { id: 'custom', emoji: '💭', title: '', desc: '', correct: true, freeText: true, placeholder: 'Enter a destination' }
                 ]
             },
             {
@@ -400,10 +394,10 @@
                 title: 'Final touch: what mood are you coming with?', subtitle: 'There is no wrong answer. But there is one perfect one.', emoji: '👗',
                 field: 'dress_choice', revealLabel: 'Mood', revealPrefix: '✨',
                 options: [
-                    { id: 'soft', emoji: '🌸', title: 'Soft and cute', desc: 'Gentle, sweet, effortless', correct: false },
+                    { id: 'soft', emoji: '🌸', title: 'Soft and cute', desc: 'Gentle, sweet, effortless', correct: true },
                     { id: 'elegant', emoji: '✨', title: 'Elegant and stunning', desc: 'The kind of look I won’t forget', correct: true },
-                    { id: 'confident', emoji: '🔥', title: 'Confident', desc: 'Main character energy', correct: false },
-                    { id: 'myself', emoji: '🤍', title: 'Just myself', desc: 'Honestly, that is already enough', correct: false }
+                    { id: 'confident', emoji: '🔥', title: 'Confident', desc: 'Main character energy', correct: true },
+                    { id: 'myself', emoji: '🤍', title: 'Just myself', desc: 'Honestly, that is already enough', correct: true }
                 ]
             }
         ]
@@ -535,6 +529,7 @@
 
         if (q.mixedChoice) { renderMixedQuestion(q, container); return; }
         if (q.dateChoice) { renderDateQuestion(q, container); return; }
+        if (q.timeChoice) { renderTimeQuestion(q, container); return; }
 
         if (q.freeChoice) {
             const input = document.createElement('textarea');
@@ -563,6 +558,63 @@
             card.onclick = () => handleDynamicOption(card, q, option);
             container.appendChild(card);
         });
+    }
+
+
+    function renderTimeQuestion(q, container) {
+        const input = document.createElement('input');
+        input.type = 'time';
+        input.className = 'name-input';
+        input.id = 'timeChoiceInput';
+        input.value = normalizeTimeInputValue(quizData[q.field] || '19:30');
+
+        const button = document.createElement('button');
+        button.className = 'btn-primary';
+        button.style.marginTop = '14px';
+        button.textContent = 'Continue ✨';
+
+        button.onclick = () => {
+            if (!input.value) {
+                showToast('Choose a time first ⏰');
+                input.classList.add('shake');
+                setTimeout(() => input.classList.remove('shake'), 400);
+                return;
+            }
+
+            quizData[q.field] = formatTimeForDisplay(input.value);
+            saveProgress();
+            nextDynamicQuestion();
+        };
+
+        container.appendChild(input);
+        container.appendChild(button);
+    }
+
+    function normalizeTimeInputValue(timeText) {
+        const raw = String(timeText || '').trim();
+
+        if (/^\d{2}:\d{2}$/.test(raw)) return raw;
+
+        const cleaned = raw.replace(/[^\d:APMapm\s]/g, '').trim();
+        const match = cleaned.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+
+        if (!match) return '19:30';
+
+        let hours = Number(match[1]);
+        const minutes = match[2];
+        const period = match[3].toUpperCase();
+
+        if (period === 'PM' && hours !== 12) hours += 12;
+        if (period === 'AM' && hours === 12) hours = 0;
+
+        return `${String(hours).padStart(2, '0')}:${minutes}`;
+    }
+
+    function formatTimeForDisplay(time24) {
+        const [h, m] = String(time24).split(':').map(Number);
+        const period = h >= 12 ? 'PM' : 'AM';
+        const hour12 = h % 12 || 12;
+        return `${hour12}:${String(m).padStart(2, '0')} ${period}`;
     }
 
     function renderMixedQuestion(q, container) {
@@ -773,16 +825,9 @@
         const year = Number(parts[0]);
         const month = Number(parts[1]) - 1;
         const day = Number(parts[2]);
-        const timeParts = convertTo24HourParts(quizData.time_choice);
+        const timeParts = getTimeParts(quizData.time_choice);
 
-        const target = new Date(
-            year,
-            month,
-            day,
-            timeParts.hours,
-            timeParts.minutes,
-            0
-        );
+        const target = new Date(year, month, day, timeParts.hours, timeParts.minutes, 0);
 
         if (isNaN(target.getTime())) {
             timeEl.textContent = 'Date selected 💌';
@@ -807,16 +852,21 @@
         countdownInterval = setInterval(update, 1000);
     }
 
-    function convertTo24HourParts(timeText) {
-        const cleaned = String(timeText)
-            .replace(/[^\d:APMapm\s]/g, '')
-            .trim();
+    function getTimeParts(timeText) {
+        const raw = String(timeText || '').trim();
 
+        const time24Match = raw.match(/^(\d{1,2}):(\d{2})$/);
+        if (time24Match) {
+            return {
+                hours: Number(time24Match[1]),
+                minutes: Number(time24Match[2])
+            };
+        }
+
+        const cleaned = raw.replace(/[^\d:APMapm\s]/g, '').trim();
         const match = cleaned.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
 
-        if (!match) {
-            return { hours: 19, minutes: 30 };
-        }
+        if (!match) return { hours: 19, minutes: 30 };
 
         let hours = Number(match[1]);
         const minutes = Number(match[2]);
